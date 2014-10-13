@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:padding="5dp" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="218dp" >
+            
+            <TextView 
+                android:id="@+id/textViewTo"
+                android:text="To"
+                android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+		        android:layout_marginTop="5dp"
+		        android:padding="2dp"
+		        android:textSize="18dp"
+                />
+            
+		    <EditText
+		        android:id="@+id/editTextSendTo"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@+id/textViewTo"
+		        android:layout_marginLeft="45dp"
+		        android:layout_marginRight="45dp"
+		        android:ems="10"
+		        android:inputType="phone" />
+		
+		    <Button
+		        android:id="@+id/addReceiverButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+		        android:layout_alignTop="@+id/textViewTo"
+		        android:text="+"
+		        android:textSize="25dp" />
+		    
+		    <TextView 
+                android:id="@+id/textViewMsg"
+                android:text="Msg"
+                android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextSendTo"
+		        android:layout_marginTop="5dp"
+		        android:padding="2dp"
+		        android:textSize="18dp"
+                />
+		     
+		     <EditText
+		        android:id="@+id/editTextMsgContent"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@+id/textViewMsg"
+		        android:layout_marginLeft="45dp"
+		        android:ems="10"
+		        android:inputType="textMultiLine" />
+
+		     <Button
+		         android:id="@+id/createNewPostMessageTaskButton"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_alignParentLeft="true"
+		         android:layout_below="@+id/editTextMsgContent"
+		         android:layout_marginTop="5dp"
+		         android:text="创建新群发任务" />
+
+		     <Button
+		         android:id="@+id/viewPostsListButton"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_below="@+id/editTextMsgContent"
+		         android:layout_marginTop="5dp"
+		         android:layout_toRightOf="@+id/createNewPostMessageTaskButton"
+		         android:text="查看任务列表" />
+
+		     <Button
+		         android:id="@+id/exitProgrammeButton"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_below="@+id/editTextMsgContent"
+		         android:layout_marginTop="5dp"
+		         android:layout_toRightOf="@+id/viewPostsListButton"
+		         android:text="退出程序" />
+		    
+        </RelativeLayout>
+        
+    </ScrollView>
+
+
+</RelativeLayout>

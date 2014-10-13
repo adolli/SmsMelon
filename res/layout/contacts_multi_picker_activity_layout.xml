@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contactPickerRootLayout"
+ 	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+	android:focusableInTouchMode="true"
+    android:background="#FFFFFF" >
+	
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/contactsPickerButtonsArea" >
+        
+<!--         <EditText -->
+<!-- 	        android:id="@+id/filterInput" -->
+<!-- 	        android:layout_width="fill_parent" -->
+<!-- 	        android:layout_height="wrap_content" -->
+<!-- 	        android:layout_marginLeft="5dip" -->
+<!-- 	        android:layout_marginRight="5dip" -->
+<!-- 	        android:layout_marginTop="5dip" -->
+<!-- 	        android:ems="8" -->
+<!-- 	        android:hint="搜索(拼音，号码)" -->
+<!-- 	        android:singleLine="true" > -->
+	
+<!-- 	    </EditText> -->
+	
+	    
+	    <!-- 这一段xml产生的布局已经由java代码完成
+	    <ScrollView
+	        android:id="@+id/scrollView1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="5dip"
+	        android:layout_below="@+id/filterInput" >
+	
+	        <LinearLayout
+	            android:id="@+id/contactsLayout"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+	
+	        </LinearLayout>
+	        
+	    </ScrollView>
+	    -->
+	    
+    </RelativeLayout>
+    
+    
+
+    <LinearLayout
+        android:id="@+id/contactsPickerButtonsArea"
+        android:layout_width="fill_parent"
+        android:layout_height="65dip"
+        android:orientation="horizontal"
+        android:padding="10dip"
+        android:layout_alignParentBottom="true" >
+    </LinearLayout>
+	
+</RelativeLayout>
