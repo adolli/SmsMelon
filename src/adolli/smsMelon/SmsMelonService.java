@@ -90,16 +90,15 @@ public class SmsMelonService extends Service
      	database.createTable("PostsList", new String[]{
         		"PostMessageTableName TEXT", 
         		"PostMessageStatus INTEGER",
-        		"PostMessageAbstract TEXT"});
+        		"PostMessageAbstract TEXT" });
 
      	// 查询表PostsList，将未完成的PostMessage加载到SmsMelon任务处理器中
      	Cursor c = database.getReadableDatabase().query(
      			"PostsList", 
-				new String[]{"PostMessageTableName", "PostMessageStatus", "PostMessageAbstract"}, 
+				new String[]{ "PostMessageTableName", "PostMessageStatus", "PostMessageAbstract" }, 
 				null, null, null, null, null);
 		while (c.moveToNext())
 		{
-			
 			if (c.getInt(1) == 0)
 			{
 				String processorTableName = c.getString(0);
@@ -108,7 +107,6 @@ public class SmsMelonService extends Service
 				smp.loadPostMessageInfo(processorTableName, processorMsgAbstract);
 				smsMelonProcessors.add(smp);
 			}
-			
 		}
 		c.close();
 		

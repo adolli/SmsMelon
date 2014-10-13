@@ -94,7 +94,7 @@ public class PostsListActivity extends Activity
 		while (c.moveToNext()) 
 		{
 			String fullTaskName = c.getString(0);
-			String taskName = "PM..." + fullTaskName.substring(18);
+			String taskName = fullTaskName;
 			String msgAbstract = c.getString(1);
 			String taskStatus = c.getInt(2) == 1 ? "ok" : "--";
 			

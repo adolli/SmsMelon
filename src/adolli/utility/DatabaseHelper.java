@@ -130,16 +130,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	
 	
 	/**
-	 * @brief	向表中插入一行
+	 * @brief	向表中插入一行， vals需要转义
 	 * @param 	table_name 表名
 	 * @param 	vals 要插入的数据数组
 	 * @notice	插入的数据用字符串表示，因为SQL语句都是字符串
 	 */
 	public void insertInto(String table_name, String[] vals)
-	{
-		// 处理val值的转意
-		//makeEscape(vals);
-				
+	{				
 		String sql = "INSERT INTO " + table_name;
 		sql += " VALUES (";
 		for (int i = 0; i < vals.length - 1; ++i)
@@ -186,11 +183,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	}
 	
 	/**
-	 * 
-	 * @param table
-	 * @param cols
-	 * @param vals
-	 * @param where
+	 * 更新数据库某表的某行，自动会将值转义
+	 * @param table 表名
+	 * @param cols 要更新的列名
+	 * @param vals 更新的值
+	 * @param where where表达式
 	 */
 	public void update(String table, String[] cols, String[] vals, String where)
 	{

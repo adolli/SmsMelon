@@ -3,12 +3,12 @@
  */
 package adolli.smsMelon;
 
+import java.util.LinkedList;
+
 import adolli.contacts.ContactsPickerTabFrame;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @author Administrator
@@ -87,6 +88,25 @@ public class SmsMelonActivity extends Activity implements View.OnClickListener
 			break;
 			
 		case R.id.createNewPostMessageTaskButton :
+			String msgContent = editTextMsgContent.getText().toString();
+			if (msgContent.isEmpty())
+			{
+				Toast.makeText(this, "消息是空白的，所以没有发送。", Toast.LENGTH_SHORT);
+			}
+			else
+			{
+				String receiverAddr = editTextSendTo.getText().toString();
+				String[] receiverAddrs = receiverAddr.split(",");
+				LinkedList<Sms> msgList = new LinkedList<Sms>();
+				for (String addr : receiverAddrs)
+				{
+					msgList.add(new Sms(addr, msgContent));
+				}
+				SmsMelonProcessor smp = smsMelonService.createNewSmsMelonProcessor();
+				smp.createNewPostMessageTask(msgList, msgContent);
+				
+				Toast.makeText(this, "new task creataed", Toast.LENGTH_LONG).show();
+			}
 			break;
 			
 		case R.id.viewPostsListButton :
