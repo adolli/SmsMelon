@@ -1,0 +1,77 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="adolli.smsMelon"
+    android:versionCode="1"
+    android:versionName="beta1" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="10" />
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        
+        <activity 
+            android:label="@string/app_name" 
+            android:name="adolli.smsMelon.SmsMelonActivity" 
+            android:launchMode="singleInstance">
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:label="@string/app_name" android:name=".ReceiverPickerActivity">
+        </activity>
+        
+        <activity android:label="@string/app_name" android:name=".CopyContactListMultiple">
+        </activity>
+        
+        <activity 
+            android:label="@string/app_name" 
+            android:name="adolli.smsMelon.PostsListActivity" 
+            android:launchMode="singleInstance">
+        </activity>
+        
+        <activity 
+            android:label="@string/app_name" 
+            android:name="adolli.smsMelon.PostMessageDetailStatusActivity" 
+            android:launchMode="singleInstance">
+        </activity>
+        
+        
+        <activity 
+            android:label="@string/app_name" 
+            android:name="adolli.contacts.ContactsPickerTabFrame">
+        </activity>
+        
+        <activity 
+            android:label="@string/app_name" 
+            android:name="adolli.contacts.ContactsPickerActivity" 
+            android:launchMode="singleInstance">
+        </activity>
+        
+        <activity 
+            android:label="@string/app_name" 
+            android:name="adolli.contacts.ContactsSelectedActivity" 
+            android:launchMode="singleInstance">
+        </activity>
+        
+        
+        <service android:name="adolli.smsMelon.SmsMelonService"></service>
+
+        
+    </application>
+
+    
+    
+    
+</manifest>
