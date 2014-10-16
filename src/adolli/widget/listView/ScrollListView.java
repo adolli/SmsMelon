@@ -1,7 +1,7 @@
 /**
  * 
  */
-package adolli.widget;
+package adolli.widget.listView;
 
 import java.util.Iterator;
 import java.util.List;
@@ -129,6 +129,17 @@ public class ScrollListView<ItemType extends ListItem> extends ScrollView
 	
 	
 	
+	/**
+	 * @brief	移除列表列表全部项目，同clearList
+	 */
+	@Override
+	public void removeAllViews()
+	{
+		clearList();
+	}
+	
+	
+	
 	
 	/**
 	 * @brief	获取列表当前所有项目的个数
@@ -156,7 +167,7 @@ public class ScrollListView<ItemType extends ListItem> extends ScrollView
 	
 	
 	
-	public ViewGroup getContactList()
+	public ViewGroup getListLayout()
 	{
 		return listLayout;
 	}

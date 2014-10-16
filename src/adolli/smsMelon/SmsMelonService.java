@@ -87,15 +87,18 @@ public class SmsMelonService extends Service
      	// 列PostMessageTableName 为群发任务表名
      	// 列PostMessageStatus 为群发任务状态，0为未完成，1为已完成
      	// 列PostMessageAbstract 为消息摘要
+     	//database.dropTable("PostsList");
      	database.createTable("PostsList", new String[]{
         		"PostMessageTableName TEXT", 
         		"PostMessageStatus INTEGER",
-        		"PostMessageAbstract TEXT" });
+        		"PostMessageAbstract TEXT",
+        		"PostMessageTimeStamp TEXT",
+        		"ReceiverCount INTEGER" });
 
      	// 查询表PostsList，将未完成的PostMessage加载到SmsMelon任务处理器中
      	Cursor c = database.getReadableDatabase().query(
      			"PostsList", 
-				new String[]{ "PostMessageTableName", "PostMessageStatus", "PostMessageAbstract" }, 
+				new String[]{ "PostMessageTableName", "PostMessageStatus", "PostMessageAbstract", "PostMessageTimeStamp" }, 
 				null, null, null, null, null);
 		while (c.moveToNext())
 		{
@@ -103,8 +106,9 @@ public class SmsMelonService extends Service
 			{
 				String processorTableName = c.getString(0);
 				String processorMsgAbstract = c.getString(2);
+				String processorMsgTimeStamp = c.getString(3);
 				SmsMelonProcessor smp = new SmsMelonProcessor(this);
-				smp.loadPostMessageInfo(processorTableName, processorMsgAbstract);
+				smp.loadPostMessageInfo(processorTableName, processorMsgAbstract, processorMsgTimeStamp);
 				smsMelonProcessors.add(smp);
 			}
 		}

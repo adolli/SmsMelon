@@ -3,18 +3,21 @@
  */
 package adolli.smsMelon;
 
+import adolli.smsMelon.PostsListItem.TaskStatisticalStateInfo;
+import adolli.smsMelon.SmsMelonProcessor.PostMessage;
 import adolli.utility.DatabaseHelper;
+import adolli.widget.button.PlaneButton;
+import adolli.widget.listView.ScrollListView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 /**
  * @author Administrator
@@ -23,8 +26,8 @@ import android.widget.TextView;
 public class PostsListActivity extends Activity 
 {
 	
-	private Button clearAllPostMessageTask = null;
-
+	private PlaneButton clearAllPostMessageTask = null;
+	private ScrollListView<PostsListItem> postsScrollListView = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -32,10 +35,9 @@ public class PostsListActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.posts_list_activity_layout);
 		
-		clearAllPostMessageTask = (Button) findViewById(R.id.clearAllPostMessageTaskButton);
+		clearAllPostMessageTask = (PlaneButton) findViewById(R.id.clearAllPostMessageTaskButton);
 		clearAllPostMessageTask.setOnClickListener(new OnClickListener() 
-		{
-			
+		{	
 			@Override
 			public void onClick(View arg0) 
 			{
@@ -63,10 +65,13 @@ public class PostsListActivity extends Activity
 					dlg.show();
 				}
 			}
-			
 		});
-		
-		
+			
+		RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.rootLayout);
+		postsScrollListView = new ScrollListView<PostsListItem>(this, "ÈÎÎñ");
+		postsScrollListView.addLayoutRules(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+		postsScrollListView.addLayoutRules(RelativeLayout.ABOVE, R.id.clearAllPostMessageTaskButton);
+		rootLayout.addView(postsScrollListView);
 	}
 	
 	
@@ -83,47 +88,75 @@ public class PostsListActivity extends Activity
 	 */
 	private void updateViews()
 	{
-		LinearLayout layout = (LinearLayout) findViewById(R.id.postsListLinearLayout);
-		layout.removeAllViews();
-		
+		postsScrollListView.clearList();
 		DatabaseHelper database = new DatabaseHelper(this, "SmsMelonDB");
 		Cursor c = database.getReadableDatabase().query(
 				"PostsList", 
-				new String[]{"PostMessageTableName", "PostMessageAbstract", "PostMessageStatus"}, 
+				new String[]{ "PostMessageTableName", "PostMessageAbstract", "PostMessageStatus", "PostMessageTimeStamp", "ReceiverCount" }, 
 				null, null, null, null, null);
-		while (c.moveToNext()) 
+		
+		Log.d("taskstatuc", "c count" + c.getCount() + "");
+		c.moveToLast();
+		while (!c.isBeforeFirst()) 
 		{
-			String fullTaskName = c.getString(0);
-			String taskName = fullTaskName;
-			String msgAbstract = c.getString(1);
-			String taskStatus = c.getInt(2) == 1 ? "ok" : "--";
-			
-			msgAbstract = DatabaseHelper.deEscape(msgAbstract);
-			
-			TextView tv = new TextView(this);
-			tv.setHint(fullTaskName);
-			tv.setText(
-					"taskId:            " + taskName + "\r\n" + 
-					"msgAbstract:  " + msgAbstract + "\r\n" + 
-					"taskStatus:      " + taskStatus + "\r\n");
-			if (c.getInt(2) == 1)
+			int taskStatus = c.getInt(2);
+			if (taskStatus != 1)
 			{
-				tv.setTextColor(getResources().getColor(android.R.color.secondary_text_dark));
-			}
-			layout.addView(tv);
-			
-			tv.setOnClickListener(new OnClickListener() 
-			{
+				final String taskId = c.getString(0);
+				String msgAbstract = DatabaseHelper.deEscape(c.getString(1));
+				String msgTimeStamp = c.getString(3);
+				int receiverCount = c.getInt(4);
 				
-				@Override
-				public void onClick(View v) 
+				Cursor replierCursor = database.getReadableDatabase().query(
+						taskId, 
+						new String[]{ "msgStatus" }, 
+						"msgStatus = " + Integer.toString(PostMessage.HAS_REPLIED),
+						null, null, null, null);
+				PostsListItem pli = new PostsListItem(this);
+				pli.setContent(msgTimeStamp, msgAbstract, new TaskStatisticalStateInfo(receiverCount, replierCursor.getCount()));
+				
+				pli.setOnClickListener(new OnClickListener() 
 				{
-					String taskId = ((TextView) v).getHint().toString();
-					Intent intent = new Intent(PostsListActivity.this, PostMessageDetailStatusActivity.class);
-					intent.putExtra("postMessageTaskId", taskId);
-					PostsListActivity.this.startActivity(intent);
-				}
-			});
+					@Override
+					public void onClick(View v) 
+					{
+						Intent intent = new Intent(PostsListActivity.this, PostMessageDetailStatusActivity.class);
+						intent.putExtra("postMessageTaskId", taskId);
+						PostsListActivity.this.startActivity(intent);
+					}
+				});
+				postsScrollListView.addListItem(pli);
+				replierCursor.close();
+			}
+			c.moveToPrevious();
+		}
+		c.moveToLast();
+		while (!c.isBeforeFirst())
+		{
+			int taskStatus = c.getInt(2);
+			if (taskStatus == 1)
+			{
+				final String taskId = c.getString(0);
+				String msgAbstract = DatabaseHelper.deEscape(c.getString(1));
+				String msgTimeStamp = c.getString(3);
+				int receiverCount = c.getInt(4);
+				
+				PostsListItem pli = new PostsListItem(this);
+				pli.setContent(msgTimeStamp, msgAbstract, new TaskStatisticalStateInfo(receiverCount, receiverCount));
+				pli.markCompleted();
+				pli.setOnClickListener(new OnClickListener() 
+				{
+					@Override
+					public void onClick(View v) 
+					{
+						Intent intent = new Intent(PostsListActivity.this, PostMessageDetailStatusActivity.class);
+						intent.putExtra("postMessageTaskId", taskId);
+						PostsListActivity.this.startActivity(intent);
+					}
+				});
+				postsScrollListView.addListItem(pli);
+			}
+			c.moveToPrevious();
 		}
 		c.close();
 		database.close();

@@ -85,6 +85,13 @@ public class RemovableContact extends ContactListItem
 					break;
 				
 				case MotionEvent.ACTION_MOVE :
+					if (event.getX() < 0 || event.getX() > v.getWidth()
+							|| event.getY() < 0 || event.getY() > v.getHeight())
+					{
+						RemovableContact.this.setBackgroundColor(Color.TRANSPARENT);
+					}
+					break;
+					
 				case MotionEvent.ACTION_UP :
 					RemovableContact.this.setBackgroundColor(Color.TRANSPARENT);
 					break;

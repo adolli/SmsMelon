@@ -9,9 +9,9 @@ import java.util.List;
 import adolli.contacts.ContactsHelper.ContactInfo;
 import adolli.smsMelon.R;
 import adolli.smsMelon.SharedSelectedContacts;
-import adolli.widget.PlaneButton;
-import adolli.widget.PlaneButtonWithCounter;
-import adolli.widget.ScrollListViewWithFilter;
+import adolli.widget.button.PlaneButton;
+import adolli.widget.button.PlaneButtonWithCounter;
+import adolli.widget.listView.ScrollListViewWithFilter;
 
 import android.app.Activity;
 import android.os.Bundle;

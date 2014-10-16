@@ -3,6 +3,7 @@
  */
 package adolli.smsMelon;
 
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
 import adolli.smsMelon.SmsMelonProcessor.PostMessage.ReplyStruct;
@@ -11,6 +12,7 @@ import adolli.utility.NotificationHelper;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.text.format.Time;
 
 /**
  * @author Administrator
@@ -68,18 +70,25 @@ public class SmsMelonProcessor
 		
 		public String task_id;
 		public String messageAbstract;
+		public String messageTimeStamp;
 		public LinkedList<ReplyStruct> receivers;
 		
-		public PostMessage(String _id, String msgAbstract)
+		public PostMessage(String _id, String msgAbstract, String msgTimeStamp)
 		{
 			task_id =_id;
 			messageAbstract = msgAbstract;
+			messageTimeStamp = msgTimeStamp;
 			receivers = new LinkedList<ReplyStruct>();
 		}
 		
 		public void addReceiver(ReplyStruct rs)
 		{
 			receivers.add(rs);
+		}
+
+		public int getReceiverCount()
+		{
+			return receivers.size();
 		}
 	}
 	
@@ -98,9 +107,19 @@ public class SmsMelonProcessor
 	 */
 	public void createNewPostMessageTask(LinkedList<Sms> receivers, String msgAbstract)
 	{
+		Time time = new Time();
+		time.setToNow();
+		DecimalFormat df4 = new DecimalFormat("0000");
+		DecimalFormat df2 = new DecimalFormat("00");
+		String timeStamp = df4.format(time.year) + "年" + 
+				df2.format(time.month) + "月" + 
+				df2.format(time.monthDay) + "日  " +
+				df2.format(time.hour) + ":" +
+				df2.format(time.minute);
+		
 		String task_id = "PM" + Long.toString(System.currentTimeMillis()) 
 				+ Integer.toString((int) (Math.random() * 10000));
-		postMessageTask = new PostMessage(task_id, msgAbstract);
+		postMessageTask = new PostMessage(task_id, msgAbstract, timeStamp);
 		for (Iterator<Sms> it = receivers.iterator(); it.hasNext(); )
 		{
 			Sms sms = it.next();
@@ -113,7 +132,9 @@ public class SmsMelonProcessor
 		database.insertInto("PostsList", new String[]{ 
 				"'" + postMessageTask.task_id + "'",
 				"0",
-				"'" + postMessageTask.messageAbstract + "'"});
+				"'" + postMessageTask.messageAbstract + "'", 
+				"'" + postMessageTask.messageTimeStamp + "'",
+				Integer.toString(postMessageTask.getReceiverCount())});
 		database.close();
 		
 		// update the database with detail table
@@ -127,9 +148,9 @@ public class SmsMelonProcessor
 	 * @param task_id 任务id号
 	 * @param msgAbstract 消息摘要
 	 */
-	public void loadPostMessageInfo(String task_id, String msgAbstract)
+	public void loadPostMessageInfo(String task_id, String msgAbstract, String msgTimeStamp)
 	{
-		postMessageTask = new PostMessage(task_id, msgAbstract);
+		postMessageTask = new PostMessage(task_id, msgAbstract, msgTimeStamp);
 		
 		// 从数据库中载入数据
 		DatabaseHelper database = new DatabaseHelper(context, "SmsMelonDB");

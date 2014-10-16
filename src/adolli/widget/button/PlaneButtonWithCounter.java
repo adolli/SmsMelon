@@ -1,7 +1,7 @@
 /**
  * 
  */
-package adolli.widget;
+package adolli.widget.button;
 
 import android.content.Context;
 

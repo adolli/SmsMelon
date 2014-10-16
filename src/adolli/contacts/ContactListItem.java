@@ -6,7 +6,7 @@ package adolli.contacts;
 import adolli.activity.UnitsUtil;
 import adolli.utility.IdGenerator;
 import adolli.utility.StringUtil;
-import adolli.widget.ListItem;
+import adolli.widget.listView.ListItem;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.TypedValue;

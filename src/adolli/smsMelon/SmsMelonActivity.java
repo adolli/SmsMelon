@@ -58,6 +58,8 @@ public class SmsMelonActivity extends Activity implements View.OnClickListener
 		createNewPostMessageTaskButton.setOnClickListener(this);
 		viewPostsListButton.setOnClickListener(this);
 		exitProgrammeButton.setOnClickListener(this);
+		
+		editTextSendTo.setText("15018775164, 13628674163");
 	}
 	
 	
@@ -103,7 +105,7 @@ public class SmsMelonActivity extends Activity implements View.OnClickListener
 				LinkedList<Sms> msgList = new LinkedList<Sms>();
 				for (String addr : receiverAddrs)
 				{
-					msgList.add(new Sms(addr, msgContent));
+					msgList.add(new Sms(addr.trim(), msgContent));
 				}
 				SmsMelonProcessor smp = smsMelonService.createNewSmsMelonProcessor();
 				smp.createNewPostMessageTask(msgList, msgContent);

@@ -2,24 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:background="#FFFFFF" 
+    android:id="@+id/rootLayout" >
 	
-	<ScrollView
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_above="@+id/clearAllPostMessageTaskButton"
-	    android:layout_marginBottom="10dp" >
+<!-- 	<ScrollView -->
+<!-- 	    android:layout_width="match_parent" -->
+<!-- 	    android:layout_height="match_parent" -->
+<!-- 	    android:layout_above="@+id/clearAllPostMessageTaskButton" -->
+<!-- 	    android:layout_marginBottom="10dp" > -->
 
-        <LinearLayout
-            android:id="@+id/postsListLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-    	</LinearLayout>
+<!--         <LinearLayout -->
+<!--             android:id="@+id/postsListLinearLayout" -->
+<!--             android:layout_width="match_parent" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:orientation="vertical" > -->
+<!--     	</LinearLayout> -->
     	
-	</ScrollView>
+<!-- 	</ScrollView> -->
 	
-	<Button
+	<adolli.widget.button.PlaneButton
 	    android:id="@+id/clearAllPostMessageTaskButton"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"

@@ -58,7 +58,7 @@ public class CopyContactListMultiple extends ListActivity implements OnClickList
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contactslist);
+		//setContentView(R.layout.contactslist);
 		
 		contactsList = new ArrayList<String>();
 		getcontactsList = new ArrayList<String>();
@@ -66,8 +66,8 @@ public class CopyContactListMultiple extends ListActivity implements OnClickList
 		final ListView listView = getListView();
 		listView.setItemsCanFocus(false);
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		okbtn = (Button) findViewById(R.id.contacts_done_button);
-		cancelbtn = (Button) findViewById(R.id.contact_back_button);
+		//okbtn = (Button) findViewById(R.id.contacts_done_button);
+		//cancelbtn = (Button) findViewById(R.id.contact_back_button);
 		okbtn.setOnClickListener(this);
 		cancelbtn.setOnClickListener(this);
 		
@@ -187,8 +187,8 @@ public class CopyContactListMultiple extends ListActivity implements OnClickList
 	{
 		switch (v.getId()) 
 		{
-		case R.id.contacts_done_button :
-			
+//		case R.id.contacts_done_button :
+		case 0 :
 			if(getcontactsList != null && getcontactsList.size() > 0)
 			{
 				Intent i = getIntent();
@@ -200,7 +200,8 @@ public class CopyContactListMultiple extends ListActivity implements OnClickList
 			CopyContactListMultiple.this.finish();
 			break;
 			
-		case R.id.contact_back_button :
+//		case R.id.contact_back_button :
+		case 1:
 			CopyContactListMultiple.this.finish();
 			break;
 			

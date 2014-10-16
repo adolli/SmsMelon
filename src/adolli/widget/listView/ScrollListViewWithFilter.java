@@ -1,7 +1,7 @@
 /**
  * 
  */
-package adolli.widget;
+package adolli.widget.listView;
 
 import java.util.List;
 
@@ -177,14 +177,14 @@ public class ScrollListViewWithFilter<ItemType extends ListItem> extends Relativ
 	 */
 	public int getItemCount()
 	{
-		return scrollListView.getContactList().getChildCount() - 1;
+		return scrollListView.getListLayout().getChildCount() - 1;
 	}
 	
 	
 	
 	public ViewGroup getContactList()
 	{
-		return scrollListView.getContactList();
+		return scrollListView.getListLayout();
 	}
 	
 	

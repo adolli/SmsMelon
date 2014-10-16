@@ -1,7 +1,7 @@
 /**
  * 
  */
-package adolli.widget;
+package adolli.widget.listView;
 
 import adolli.contacts.ContentNonContinuousSequenceMatchable;
 import android.content.Context;
