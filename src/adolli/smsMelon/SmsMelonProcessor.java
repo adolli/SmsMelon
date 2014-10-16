@@ -107,12 +107,16 @@ public class SmsMelonProcessor
 			postMessageTask.addReceiver(new ReplyStruct(sms.address, PostMessage.MSG_SENT, ""));
 			SmsHelper.sendSms(sms);
 		}
+		
+		// add this new task to the PostsList
 		DatabaseHelper database = new DatabaseHelper(context, "SmsMelonDB");
 		database.insertInto("PostsList", new String[]{ 
 				"'" + postMessageTask.task_id + "'",
 				"0",
 				"'" + postMessageTask.messageAbstract + "'"});
 		database.close();
+		
+		// update the database with detail table
 		updatePostMessageInfo();
 	}
 	

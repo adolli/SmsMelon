@@ -7,12 +7,15 @@ import java.util.LinkedList;
 
 import adolli.contacts.ContactsPickerTabFrame;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,11 +118,52 @@ public class SmsMelonActivity extends Activity implements View.OnClickListener
 			break;
 			
 		case R.id.exitProgrammeButton :
+			AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+			dlg.setTitle("SmsMelon");
+			dlg.setMessage("蜜瓜短信(SmsMelon)退出后将不会占用任何资源，同时也无法自动登记回复者，真的要退出吗？");
+			dlg.setPositiveButton("退出程序", new DialogInterface.OnClickListener() 
+			{
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) 
+				{
+					SmsMelonActivity.this.finish();
+				}
+			});
+			dlg.setNegativeButton("后台运行", new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					SmsMelonActivity.this.minimize();
+				}
+			});
+			dlg.show();
 			break;
 		
 		default :
 			;
 		}
+	}
+	
+	
+	public void minimize()
+	{
+		// 程序最小化
+    	Intent home = new Intent(Intent.ACTION_MAIN);  
+    	home.addCategory(Intent.CATEGORY_HOME);   
+    	startActivity(home);
+	}
+	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) 
+	{
+		// 按下返回按键
+	    if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
+	    {   
+	    	minimize();
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 	
 }
