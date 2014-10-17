@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adolli.activity.TabFrame;
-import adolli.smsMelon.PostsListActivity;
 import adolli.smsMelon.R;
+import adolli.smsMelon.postsList.PostsListActivity;
 
 public class ContactsPickerTabFrame extends TabFrame
 {

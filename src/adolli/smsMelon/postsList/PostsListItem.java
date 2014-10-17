@@ -1,9 +1,10 @@
 /**
  * 
  */
-package adolli.smsMelon;
+package adolli.smsMelon.postsList;
 
 import adolli.activity.UnitsUtil;
+import adolli.smsMelon.R;
 import adolli.utility.IdGenerator;
 import adolli.widget.listView.ListItem;
 import android.content.Context;

@@ -1,12 +1,15 @@
 /**
  * 
  */
-package adolli.smsMelon;
+package adolli.smsMelon.postDetail;
 
+import adolli.smsMelon.R;
+import adolli.smsMelon.SmsMelonProcessor;
 import adolli.utility.DatabaseHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -21,12 +24,36 @@ public class PostMessageDetailStatusActivity extends Activity
 {
 
 	private String taskId = null;
+	private TextView tvMsgAbstract = null;
+	private TextView tvMsgTimeStamp = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.posts_message_detail_status_activity_layout);
+		
+		Intent intent = getIntent();
+		taskId = intent.getStringExtra("postMessageTaskId");
+		
+		tvMsgAbstract = (TextView) findViewById(R.id.detailView_messageAbstract);
+		tvMsgTimeStamp = (TextView) findViewById(R.id.detailView_messageTimeStamp);
+		tvMsgTimeStamp.setTextColor(Color.LTGRAY);
+		
+		DatabaseHelper database = new DatabaseHelper(this, "SmsMelonDB");
+		Cursor c = database.getReadableDatabase().query("PostsList", 
+				new String[]{ "PostMessageAbstract", "PostMessageTimeStamp" }, 
+				"PostMessageTableName = '" + taskId + "'", 
+				null, null, null, null);
+		if (c.moveToFirst())
+		{
+			String msgAbstract = c.getString(0);
+			String timeStamp = c.getString(1);
+			
+			tvMsgAbstract.setText(msgAbstract);
+			tvMsgTimeStamp.setText("ÓÚ " + timeStamp + " ·¢³ö");
+		}
+		
 	}
 	
 	
@@ -41,10 +68,7 @@ public class PostMessageDetailStatusActivity extends Activity
 		LinearLayout layout = (LinearLayout) findViewById(R.id.postMessageDetailLinearLayout);
 		layout.removeAllViews();
 		
-		
-		Intent intent = getIntent();
-		taskId = intent.getStringExtra("postMessageTaskId");
-		Log.d("test taskid", taskId);
+		Log.d("test taskid != null", taskId);
 		
 		DatabaseHelper database = new DatabaseHelper(this, "SmsMelonDB");
 		Cursor c = database.getReadableDatabase().query(
@@ -78,14 +102,17 @@ public class PostMessageDetailStatusActivity extends Activity
 			layout.addView(tv);
 		}
 		c.close();
-		database.close();
+		database.close();	
+		
+		ReceiverReplyStatusListItem rrs = new ReceiverReplyStatusListItem(getBaseContext());
+		rrs.setContent("Lixiang", "this is what i replied!");
+		layout.addView(rrs);
 	}
 	
 	
 	@Override
 	protected void onDestroy()
 	{
-		
 		super.onDestroy();
 	}
 	

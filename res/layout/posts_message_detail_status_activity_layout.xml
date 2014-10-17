@@ -2,11 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:background="#FFFFFF" >
 
+    <TextView
+        android:id="@+id/detailView_abstractTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dip"
+        android:text="消息摘要" />
+
+    <TextView
+        android:id="@+id/detailView_messageAbstract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailView_abstractTitle"
+        android:text="loading error" />
+	<TextView
+        android:id="@+id/detailView_messageTimeStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailView_messageAbstract"
+        android:text="loading error" />
+    
     <ScrollView 
 	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content" >
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/detailView_messageTimeStamp" >
 	    
 	    <LinearLayout
 	        android:id="@+id/postMessageDetailLinearLayout"

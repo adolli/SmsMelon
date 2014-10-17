@@ -6,6 +6,7 @@ package adolli.smsMelon;
 import java.util.LinkedList;
 
 import adolli.contacts.ContactsPickerTabFrame;
+import adolli.smsMelon.postsList.PostsListActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -96,7 +97,7 @@ public class SmsMelonActivity extends Activity implements View.OnClickListener
 			String msgContent = editTextMsgContent.getText().toString();
 			if (msgContent.isEmpty())
 			{
-				Toast.makeText(this, "消息是空白的，所以没有发送。", Toast.LENGTH_SHORT);
+				Toast.makeText(this, "消息是空白的，所以没有发送。", Toast.LENGTH_SHORT).show();
 			}
 			else
 			{
@@ -110,7 +111,7 @@ public class SmsMelonActivity extends Activity implements View.OnClickListener
 				SmsMelonProcessor smp = smsMelonService.createNewSmsMelonProcessor();
 				smp.createNewPostMessageTask(msgList, msgContent);
 				
-				Toast.makeText(this, "new task creataed", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "新任务已经创建好了，放心等待回复吧！", Toast.LENGTH_LONG).show();
 			}
 			break;
 			

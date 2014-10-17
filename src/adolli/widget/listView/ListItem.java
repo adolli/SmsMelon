@@ -17,6 +17,7 @@ public abstract class ListItem extends RelativeLayout implements ContentNonConti
 	public ListItem(Context context)
 	{
 		super(context);
+		
 	}
 
 	

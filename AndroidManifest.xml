@@ -37,13 +37,13 @@
         
         <activity 
             android:label="@string/app_name" 
-            android:name="adolli.smsMelon.PostsListActivity" 
+            android:name="adolli.smsMelon.postsList.PostsListActivity" 
             android:launchMode="singleInstance">
         </activity>
         
         <activity 
             android:label="@string/app_name" 
-            android:name="adolli.smsMelon.PostMessageDetailStatusActivity" 
+            android:name="adolli.smsMelon.postDetail.PostMessageDetailStatusActivity" 
             android:launchMode="singleInstance">
         </activity>
         

@@ -141,7 +141,7 @@ public class SmsMelonService extends Service
     /**
      * @brief	清除所有任务
      */
-    protected void clearAllPostMessageTask()
+    public void clearAllPostMessageTask()
     {
     	// 清除数据库中的数据
     	DatabaseHelper database = new DatabaseHelper(this, "SmsMelonDB");

@@ -1,10 +1,13 @@
 /**
  * 
  */
-package adolli.smsMelon;
+package adolli.smsMelon.postsList;
 
-import adolli.smsMelon.PostsListItem.TaskStatisticalStateInfo;
+import adolli.smsMelon.R;
+import adolli.smsMelon.SmsMelonActivity;
 import adolli.smsMelon.SmsMelonProcessor.PostMessage;
+import adolli.smsMelon.postDetail.PostMessageDetailStatusActivity;
+import adolli.smsMelon.postsList.PostsListItem.TaskStatisticalStateInfo;
 import adolli.utility.DatabaseHelper;
 import adolli.widget.button.PlaneButton;
 import adolli.widget.listView.ScrollListView;
