@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.util.TypedValue;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,19 +38,14 @@ public class PostsListItem extends ListItem
 	
 	protected TextView tvDataTime = null;
 	protected TextView tvAbstract = null;
-	protected LinearLayout llStatusLayout = null;
-	protected TextView tvTotalCount = null;
-	protected TextView tvRepliedCount = null;
-	protected TextView tvRemainedCount = null;
+	protected TextView tvProgressStatus = null;
 	
 	protected ImageView imCompleted = null;
 	
 	private final int _id_tvDataTime = IdGenerator.getNewId();
 	private final int _id_tvAbstract = IdGenerator.getNewId();
+	private final int _id_tvProgressStatus = IdGenerator.getNewId();
 	
-	private static final String tagTotal = "总共:";
-	private static final String tagReplied = "已回:";
-	private static final String tagRemained = "未回:";
 
 	public PostsListItem(Context context)
 	{
@@ -72,42 +66,27 @@ public class PostsListItem extends ListItem
 		tvAbstract.setLines(1);
 		tvAbstract.setTextColor(Color.GRAY);
 		
-		llStatusLayout = new LinearLayout(getContext());
-		llStatusLayout.setOrientation(LinearLayout.HORIZONTAL);
+		tvProgressStatus = new TextView(getContext());
+		tvProgressStatus.setId(_id_tvProgressStatus);
+		tvProgressStatus.setTextColor(Color.GRAY);
 		
-		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		llp.weight = 1;
 		
-		tvTotalCount = new TextView(getContext());
-		tvTotalCount.setLayoutParams(llp);
-		tvTotalCount.setTextColor(Color.GRAY);
-		
-		tvRepliedCount = new TextView(getContext());
-		tvRepliedCount.setLayoutParams(llp);
-		tvRepliedCount.setTextColor(Color.GRAY);
-		
-		tvRemainedCount = new TextView(getContext());
-		tvRemainedCount.setLayoutParams(llp);
-		tvRemainedCount.setTextColor(Color.GRAY);
-		
-		llStatusLayout.addView(tvTotalCount);
-		llStatusLayout.addView(tvRepliedCount);
-		llStatusLayout.addView(tvRemainedCount);
-		
-		addView(tvDataTime);
-		addView(tvAbstract);
-		addView(llStatusLayout);
 		
 		final int dip_3 = UnitsUtil.dip2px(getContext(), 3);
 		RelativeLayout.LayoutParams rlp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		rlp.setMargins(0, dip_3, 0, 0);
 		rlp.addRule(RelativeLayout.BELOW, tvDataTime.getId());
 		tvAbstract.setLayoutParams(rlp);
+				
+		RelativeLayout.LayoutParams rlp2 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		rlp2.setMargins(0, 2 * dip_3, 0, 0);
+		rlp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		rlp2.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		tvProgressStatus.setLayoutParams(rlp2);
 		
-		RelativeLayout.LayoutParams rlp1 = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		rlp1.setMargins(0, dip_3, 0, 0);
-		rlp1.addRule(RelativeLayout.BELOW, tvAbstract.getId());
-		llStatusLayout.setLayoutParams(rlp1);
+		addView(tvDataTime);
+		addView(tvAbstract);
+		addView(tvProgressStatus);
 	}
 
 	
@@ -116,9 +95,7 @@ public class PostsListItem extends ListItem
 	{
 		tvDataTime.setText(timeStamp);
 		tvAbstract.setText(msgAbstract);
-		tvTotalCount.setText(tagTotal + tsi.total);
-		tvRepliedCount.setText(tagReplied + tsi.replied);
-		tvRemainedCount.setText(tagRemained + (tsi.total - tsi.replied));
+		tvProgressStatus.setText(tsi.replied + "/" + tsi.total);
 	}
 	
 	
@@ -141,12 +118,13 @@ public class PostsListItem extends ListItem
 			imCompleted = new ImageView(getContext());
 			imCompleted.setImageBitmap(scaledBmp);
 			
+			final int dip_25 = UnitsUtil.dip2px(getContext(), 25);
 			RelativeLayout.LayoutParams rlp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			rlp.setMargins(0, 0, 0, 0);
+			rlp.setMargins(0, 0, dip_25, 0);
 			rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 			imCompleted.setLayoutParams(rlp);
 		}
-		addView(imCompleted);
+		addView(imCompleted, 0);
 	}
 	
 	

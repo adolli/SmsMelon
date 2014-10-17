@@ -59,7 +59,7 @@ public class SmsMelonActivity extends Activity implements View.OnClickListener
 		viewPostsListButton.setOnClickListener(this);
 		exitProgrammeButton.setOnClickListener(this);
 		
-		editTextSendTo.setText("15018775164, 13628674163");
+		editTextSendTo.setText("15018775164, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163, 13628674163");
 	}
 	
 	
